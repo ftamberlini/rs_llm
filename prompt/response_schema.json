@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "IMDb_ID": {
+      "type": "string",
+      "pattern": "^nm[0-9]{7}$",
+      "description": "IMDb ID of the artist (e.g., nm0000154). ASCII ONLY."
+    },
+    "Name_DIRECTOR_WRITER_CAST": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z\\s\\.\\-]*$",
+      "description": "Full name of the artist in UPPERCASE. ASCII ONLY. No accented characters or special symbols."
+    },
+    "Birthday": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "Date in YYYY-MM-DD format. Use 0000-MM-DD if year unknown, 0000-00-00 if completely unknown. ASCII ONLY."
+    },
+    "Gender": {
+      "type": "string",
+      "enum": ["MALE", "FEMALE", "UNKNOWN"],
+      "description": "Gender of the artist. ASCII ONLY."
+    },
+    "Race": {
+      "type": "string",
+      "enum": ["WHITE", "BLACK", "MIXED-RACE", "ASIAN", "INDIGENOUS", "UNKNOWN"],
+      "description": "Race of the artist. ASCII ONLY."
+    },
+    "Nationality": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "ISO 3166-1 alpha-3 country code (USA, BRA, GBR, FRA, JPN) or UNK. ASCII ONLY.",
+      "maxLength": 3,
+      "minLength": 3
+    },
+    "Birthplace": {
+      "type": "string",
+      "pattern": "^[A-Z0-9\\s\\,\\-]+$",
+      "description": "Birthplace in format CITY, STATE/PROVINCE, COUNTRY_CODE (e.g., PEEKSKILL, NEW YORK, USA). Use UNKNOWN if unavailable. ASCII ONLY. No accented characters."
+    },
+    "Religion": {
+      "type": "string",
+      "enum": [
+        "CHRISTIANITY - CATHOLIC",
+        "CHRISTIANITY - PROTESTANT",
+        "CHRISTIANITY - ORTHODOX",
+        "SPIRITISM",
+        "AFRICAN TRADITIONAL RELIGIONS",
+        "JUDAISM",
+        "ISLAM",
+        "BUDDHISM",
+        "NEW EASTERN RELIGIONS",
+        "OTHER RELIGIOSITIES",
+        "NO RELIGION",
+        "MULTIPLE BELONGINGS",
+        "UNKNOWN"
+      ],
+      "description": "Religion of the artist. ASCII ONLY."
+    },
+    "Ethnicity": {
+      "type": "string",
+      "pattern": "^[A-Z0-9\\s\\-]+$",
+      "description": "Short description of ethnic or cultural background (e.g., ITALIAN-AMERICAN, AFRO-BRAZILIAN). Use UNKNOWN if unavailable. ASCII ONLY. No accented characters."
+    }
+  },
+  "required": [
+    "IMDb_ID",
+    "Name_DIRECTOR_WRITER_CAST",
+    "Birthday",
+    "Gender",
+    "Race",
+    "Nationality",
+    "Birthplace",
+    "Religion",
+    "Ethnicity"
+  ],
+  "additionalProperties": false
+}
