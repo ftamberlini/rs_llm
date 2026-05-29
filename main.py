@@ -74,7 +74,7 @@ class AgentBatchProcessor:
                     return f"Error: {str(e)}"
                 time.sleep(2 ** attempt)
 
-    def process_batch(self, input_file, output_file, delay=1, batch_size=50, sep=",", limit=None):
+    def process_batch(self, input_file, output_file, delay=1, batch_size=50, sep=",", limit=None, start=0):
         df = pd.read_csv(input_file, sep=sep)
         id_col, name_col = df.columns[0], df.columns[1]
 
@@ -88,7 +88,7 @@ class AgentBatchProcessor:
             df["RESPOSTA"] = ""
             df["STATUS"] = ""
 
-        pending = df[df["STATUS"] != "success"]
+        pending = df.iloc[start:][df["STATUS"] != "success"]
         if limit is not None:
             pending = pending.head(limit)
 
@@ -122,6 +122,7 @@ if __name__ == "__main__":
     parser.add_argument("type", choices=["cast", "director", "writer"], help="Input file type")
     parser.add_argument("--model", choices=list(MODELS.keys()), default="claude", help="LLM provider")
     parser.add_argument("--limit", type=int, default=None, help="Max number of queries to process")
+    parser.add_argument("--start", type=int, default=0, help="Start from this line (0-based)")
     args = parser.parse_args()
 
     load_dotenv()
@@ -138,4 +139,5 @@ if __name__ == "__main__":
         delay=1,
         batch_size=100,
         limit=args.limit,
+        start=args.start,
     )
